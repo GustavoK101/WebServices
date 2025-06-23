@@ -1,18 +1,34 @@
 package gustavo_kramer.jpahibernatecurso.resources;
 
 import gustavo_kramer.jpahibernatecurso.entities.Usuario;
+import gustavo_kramer.jpahibernatecurso.repositories.UserRepository;
+import gustavo_kramer.jpahibernatecurso.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/users")
 public class UserResource {
 
+    @Autowired
+    private UserService service;
+
     @GetMapping
-    public ResponseEntity<Usuario> findAll() {
-        Usuario u = new Usuario(1L,"Maria","Maria@gmail.com","99999999999","12345");
-        return ResponseEntity.ok().body(u);
+    public ResponseEntity<List<Usuario>> findAll() {
+        List<Usuario> list = service.findAll();
+        return ResponseEntity.ok().body(list);
     }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Usuario> findById(@PathVariable Long id) {
+        Usuario obj = service.findById(id);
+        return ResponseEntity.ok().body(obj);
+    }
+
 }
