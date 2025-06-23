@@ -3,20 +3,26 @@ package gustavo_kramer.jpahibernatecurso.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class User implements Serializable {
+import jakarta.persistence.*;
+
+@Entity
+@Table(name ="tb_user")
+public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String email;
     private String phone;
     private String password;
 
-    public User() {
+    public Usuario() {
     }
 
-    public User(Long id, String name, String email, String phone, String password) {
+    public Usuario(Long id, String name, String email, String phone, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -67,7 +73,7 @@ public class User implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
+        Usuario user = (Usuario) o;
         return Objects.equals(id, user.id);
     }
 
