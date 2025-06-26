@@ -1,5 +1,7 @@
 package gustavo_kramer.jpahibernatecurso.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -14,6 +16,8 @@ public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T' HH:mm:ss'Z'")
     private Instant moment;
 
     @ManyToOne
@@ -41,6 +45,15 @@ public class Order implements Serializable {
     }
 
     public void setClient(Usuario client) {
+        this.client = client;
+    }
+
+    public Order() {
+    }
+
+    public Order(Long id, Instant moment, Usuario client) {
+        this.id = id;
+        this.moment = moment;
         this.client = client;
     }
 
