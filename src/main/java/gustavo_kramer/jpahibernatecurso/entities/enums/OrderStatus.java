@@ -1,4 +1,4 @@
-package gustavo_kramer.jpahibernatecurso.entities;
+package gustavo_kramer.jpahibernatecurso.entities.enums;
 
 public enum OrderStatus {
 

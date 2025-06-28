@@ -1,6 +1,7 @@
 package gustavo_kramer.jpahibernatecurso.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import gustavo_kramer.jpahibernatecurso.entities.enums.OrderStatus;
 import jakarta.persistence.*;
 
 import java.io.Serializable;

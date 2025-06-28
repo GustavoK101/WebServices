@@ -1,6 +1,7 @@
 package gustavo_kramer.jpahibernatecurso.config;
 
 import gustavo_kramer.jpahibernatecurso.entities.*;
+import gustavo_kramer.jpahibernatecurso.entities.enums.OrderStatus;
 import gustavo_kramer.jpahibernatecurso.repositories.CategoryRepository;
 import gustavo_kramer.jpahibernatecurso.repositories.OrderRepository;
 import gustavo_kramer.jpahibernatecurso.repositories.ProductRepository;
