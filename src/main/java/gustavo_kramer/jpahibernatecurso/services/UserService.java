@@ -2,6 +2,7 @@ package gustavo_kramer.jpahibernatecurso.services;
 
 import gustavo_kramer.jpahibernatecurso.entities.Usuario;
 import gustavo_kramer.jpahibernatecurso.repositories.UserRepository;
+import gustavo_kramer.jpahibernatecurso.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,7 @@ public class UserService {
 
     public Usuario findById(Long id) {
         Optional<Usuario> obj = repository.findById(id);
-        return obj.get();
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public Usuario insert(Usuario obj) {
