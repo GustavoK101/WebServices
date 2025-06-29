@@ -1,5 +1,6 @@
 package gustavo_kramer.jpahibernatecurso.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import gustavo_kramer.jpahibernatecurso.entities.pk.OrderItemPK;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -15,7 +16,7 @@ public class OrderItem implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @EmbeddedId
-    private OrderItemPK id;
+    private OrderItemPK id = new OrderItemPK();
 
     private Integer quantity;
     private Double price;
@@ -23,6 +24,7 @@ public class OrderItem implements Serializable {
     public OrderItem() {}
 
     public OrderItem(Order order, Product product, Integer quantity, Double price) {
+        super();
         id.setOrder(order);
         id.setProduct(product);
 
@@ -30,12 +32,13 @@ public class OrderItem implements Serializable {
         this.price = price;
     }
 
+    @JsonIgnore
     public Order getOrder() {
         return id.getOrder();
     }
 
     public void setOrder(Order order) {
-        this.id.setOrder(order);
+        id.setOrder(order);
     }
 
     public Product getProduct() {
@@ -43,16 +46,10 @@ public class OrderItem implements Serializable {
     }
 
     public void setProduct(Product product) {
-        this.id.setProduct(product);
+        id.setProduct(product);
     }
 
-    public OrderItemPK getId() {
-        return id;
-    }
 
-    public void setId(OrderItemPK id) {
-        this.id = id;
-    }
 
     public Integer getQuantity() {
         return quantity;

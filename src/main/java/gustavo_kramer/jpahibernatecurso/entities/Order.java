@@ -1,12 +1,15 @@
 package gustavo_kramer.jpahibernatecurso.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import gustavo_kramer.jpahibernatecurso.entities.enums.OrderStatus;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_order")
@@ -17,7 +20,7 @@ public class Order implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T' HH:mm:ss'Z'")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T' HH:mm:ss'Z'",timezone = "GMT")
     private Instant moment;
 
     private Integer orderStatus;
@@ -25,6 +28,20 @@ public class Order implements Serializable {
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Usuario client;
+
+    @OneToMany(mappedBy = "id.order")
+    private Set<OrderItem> items = new HashSet<>();
+
+    public Order() {
+    }
+
+    public Order(Long id, Instant moment,OrderStatus orderStatus, Usuario client) {
+        super();
+        this.id = id;
+        this.moment = moment;
+        setOrderStatus(orderStatus);
+        this.client = client;
+    }
 
     public Long getId() {
         return id;
@@ -60,14 +77,8 @@ public class Order implements Serializable {
         }
     }
 
-    public Order() {
-    }
-
-    public Order(Long id, Instant moment,OrderStatus orderStatus, Usuario client) {
-        this.id = id;
-        this.moment = moment;
-        setOrderStatus(orderStatus);
-        this.client = client;
+    public Set<OrderItem> getItems() {
+        return items;
     }
 
     @Override
