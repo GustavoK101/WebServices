@@ -25,4 +25,8 @@ public class UserService {
     public Usuario insert(Usuario obj) {
         return repository.save(obj);
     }
+
+    public void delete(Usuario obj) {
+        repository.delete(obj);
+    }
 }
