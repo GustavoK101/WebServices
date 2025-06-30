@@ -1,0 +1,30 @@
+# docker-compose.yml
+
+services:
+  # Serviço do Banco de Dados PostgreSQL
+  db:
+    image: postgres:16-alpine  # Use uma versão específica, é mais seguro que 'latest'
+    container_name: meu_novo_projeto_db # Dê um nome único para o container
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: springboot_course
+    ports:
+      # Mapeia a porta 5433 da sua máquina (host) para a porta 5432 do container
+      # Use uma porta diferente (ex: 5433) se a 5432 já estiver em uso por outro container
+      - "5433:5432"
+    volumes:
+      # Garante que os dados do banco de dados persistam mesmo que o container seja recriado
+      - ./postgres_data:/var/lib/postgresql/data
+
+  # Futuramente, você pode adicionar o serviço da sua aplicação aqui
+  # app:
+  #   build: .
+  #   ports:
+  #     - "8000:8000"
+  #   depends_on:
+  #     - db # Garante que o banco de dados inicie antes da sua aplicação
+
+volumes:
+  postgres_data:
